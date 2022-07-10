@@ -38,5 +38,5 @@ jobs:
       - name: Install surge
         run: npm install -g surge
         
-      - name: Deploy react app to surge
+      - name: Deploy reactJS app to surge
         run: surge ./build textutils_87.surge.su --token ${{ secrets.TEXTUTILS_SECRET_TOKEN }}
