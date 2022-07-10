@@ -33,7 +33,7 @@ jobs:
           cmd: install # will run `yarn install` command
           
       - name: Creaet React pp
-        run: npm run build
+        run: yarn build
         
       - name: Install surge
         run: npm install -g surge
