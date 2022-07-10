@@ -23,14 +23,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       
       - name: Install NodeJS
         uses: actions/setup-node@v2-beta
         with:
           node-version: 12
           
-      - uses: borales/actions-yarn@v3.0.0
+      - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
 
@@ -41,4 +41,4 @@ jobs:
         run: npm install -g surge
         
       - name: Deploy to surge
-        run: surge ./build textutils_july_10_2022.surge.su ${{ secrets.TEXTUTILS_SECRET_TOKEN }}
+        run: surge ./build textutils_july_10_2022.surge.su --token ${{ secrets.TEXTUTILS_SECRET_TOKEN }}
