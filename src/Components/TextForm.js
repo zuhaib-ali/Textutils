@@ -15,7 +15,7 @@ export default function TextForm(props) {
     function copyHandler(){
         let para = document.getElementById("paragraph");
         let selected_text = para.value.slice(para.selectionStart, para.selectionEnd);
-        if(selected_text == "" || selected_text === undefined){
+        if(selected_text === "" || selected_text === undefined){
             selected_text = para.select();
         }
         navigator.clipboard.writeText(selected_text);
