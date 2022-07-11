@@ -11,6 +11,7 @@ export default function TextForm(props) {
         setText(event.target.value);
     }
 
+    // COPY TEXT
     function copyHandler(){
         let para = document.getElementById("paragraph");
         let selected_text = para.value.slice(para.selectionStart, para.selectionEnd);
@@ -18,6 +19,11 @@ export default function TextForm(props) {
             selected_text = para.select();
         }
         navigator.clipboard.writeText(selected_text);
+
+        props.setAlert({
+            title:"Success",
+            message:"Text coppied"
+        });
     }
 
     // TEXT UPPER CASE
@@ -47,37 +53,17 @@ export default function TextForm(props) {
         setText(text.split(/[ ]+/).join(" "));
     }
 
+    // CLEAR ALL TEXT
     function clearTextHandler(){
         setText("");
     }
-
-    // LIGTH / DARK MODE
-    const [mode, setMode] = useState({
-        color:"black",
-        backgroundColor:"white",
-    });
-    function toggleModeHandler(){
-        if(mode.color === "white"){
-            setMode({
-                color:"black",
-                backgroundColor:"white",
-            });
-
-        }else{
-            setMode({
-                color:"white",
-                backgroundColor:"black",
-            });
-        }
-        
-    }
-
+    
     return (
-        <div className="container mt-5 p-5" style={mode}>
+        <div className="container mt-5 p-5" style={props.mode}>
             {/* TEXT AREA */}
             <div className="mb-3">
                 <label for="exampleFormControlTextarea1" className="form-label">{props.formHeading}</label>
-                <textarea style={mode} className="form-control" value={text} id="paragraph" rows="3" onChange={textFormHandler}></textarea>
+                <textarea className="form-control" style={props.mode} placeholder="Type here..." value={text} id="paragraph" rows="3" onChange={textFormHandler}></textarea>
                 <br />
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     {/* OPERATIONS */}
@@ -86,14 +72,13 @@ export default function TextForm(props) {
                         <button className="btn btn-primary btn-sm" onClick={uppercaseHandler} style={operatonButtonStyle}>UPPER</button>
                         <button className="btn btn-primary btn-sm" onClick={lowwercaseHandler} style={operatonButtonStyle}>lower</button>
                         <button className="btn btn-warning btn-sm" onClick={extraSpacesRemoveHandler} style={operatonButtonStyle}>Remove Extra Spaces</button>
-                        <button className="btn btn-dark btn-sm" onClick={toggleModeHandler} style={operatonButtonStyle}>{mode.color === "white" ? "Light" : "Dark"}</button>
                         <button className="btn btn-danger btn-sm" onClick={clearTextHandler} style={operatonButtonStyle}>Clear</button>
                     </div>
 
                     {/* TEXT DETAILS */}
                     <div className="details">
-                        <span><i>WORDS</i> : <b>{text.length}</b>, </span>
-                        <span><i>Characters</i> : <b>{text.split(" ").length}</b></span>
+                        <span><i>Characters</i> : <b>{text.length}</b>, </span>
+                        <span><i>Words</i> : <b>{text.split(" ").length-1}</b></span>
                     </div>
                 </div>
                 
