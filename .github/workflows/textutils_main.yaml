@@ -44,4 +44,4 @@ jobs:
         run: npm install -g surge
         
       - name: Delopy
-        run: surge ./build textutils-july-22.surge.sh --token {{ secrets.SURGE_TOKEN }}
+        run: surge ./build textutils-july-22.surge.sh --token ${{ secrets.SURGE_TOKEN }}
