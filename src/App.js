@@ -5,10 +5,10 @@ import TextForm from './Components/TextForm'
 
 function App() {
   return (
-    <React.Fragment>
+    <>
       <Navbar/>
       <TextForm />
-    </React.Fragment>
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { PropTypes } from 'prop-types'
 
 const operatonButtonStyle = {
     margin:"0px 3px"
@@ -115,12 +114,4 @@ export default function TextForm(props) {
             </div>
         </div>
     )
-}
-
-TextForm.propTypes = {
-    formHeading:PropTypes.string
-}
-
-TextForm.defaultProps = {
-    formHeading:"TYPE YOUR TEXT BELOW"
 }
