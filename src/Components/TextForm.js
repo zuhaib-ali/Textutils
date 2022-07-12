@@ -14,6 +14,13 @@ export default function TextForm(props) {
     // COPY TEXT
     function copyHandler(){
         let para = document.getElementById("paragraph");
+        if(para.value === ""){
+            props.setAlert({
+                title:"warning",
+                message:"Empty content"
+            });    
+            return false;
+        }
         let selected_text = para.value.slice(para.selectionStart, para.selectionEnd);
         if(selected_text === "" || selected_text === undefined){
             selected_text = para.select();
@@ -21,7 +28,7 @@ export default function TextForm(props) {
         navigator.clipboard.writeText(selected_text);
 
         props.setAlert({
-            title:"Success",
+            title:"success",
             message:"Text coppied"
         });
     }
@@ -32,6 +39,13 @@ export default function TextForm(props) {
         let start_index = textarea_tag.selectionStart;
         let end_index = textarea_tag.selectionEnd;
         let selected_string = textarea_tag.value.slice(start_index, end_index);
+        if(selected_string === ""){
+            props.setAlert({
+                title:"warning",
+                message:"Empty content"
+            });    
+            return false;
+        }
         let start_content = textarea_tag.value.substr(0, start_index);
         let end_content = textarea_tag.value.substr(end_index, textarea_tag.value.length);
         setText(start_content+selected_string.toUpperCase()+end_content);
@@ -43,6 +57,13 @@ export default function TextForm(props) {
         let start_index = textarea_tag.selectionStart;
         let end_index = textarea_tag.selectionEnd;
         let selected_string = textarea_tag.value.slice(start_index, end_index);
+        if(selected_string === ""){
+            props.setAlert({
+                title:"warning",
+                message:"Empty content"
+            });    
+            return false;
+        }
         let start_content = textarea_tag.value.substr(0, start_index);
         let end_content = textarea_tag.value.substr(end_index, textarea_tag.value.length);
         setText(start_content+selected_string.toLowerCase()+end_content);
@@ -59,7 +80,7 @@ export default function TextForm(props) {
     }
     
     return (
-        <div className="container mt-5 p-5" style={props.mode}>
+        <div className="container" style={props.mode}>
             {/* TEXT AREA */}
             <div className="mb-3">
                 <label for="exampleFormControlTextarea1" className="form-label">{props.formHeading}</label>
@@ -68,17 +89,17 @@ export default function TextForm(props) {
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     {/* OPERATIONS */}
                     <div>
-                        <button className="btn btn-secondary btn-sm" onClick={copyHandler} style={operatonButtonStyle}>Copy</button>
-                        <button className="btn btn-primary btn-sm" onClick={uppercaseHandler} style={operatonButtonStyle}>UPPER</button>
-                        <button className="btn btn-primary btn-sm" onClick={lowwercaseHandler} style={operatonButtonStyle}>lower</button>
-                        <button className="btn btn-warning btn-sm" onClick={extraSpacesRemoveHandler} style={operatonButtonStyle}>Remove Extra Spaces</button>
-                        <button className="btn btn-danger btn-sm" onClick={clearTextHandler} style={operatonButtonStyle}>Clear</button>
+                        <button className="btn btn-secondary btn-sm" onClick={copyHandler} style={operatonButtonStyle} disabled={text.length === 0 ? true: false}>Copy</button>
+                        <button className="btn btn-primary btn-sm" onClick={uppercaseHandler} style={operatonButtonStyle} disabled={text.length === 0 ? true: false}>UPPER</button>
+                        <button className="btn btn-primary btn-sm" onClick={lowwercaseHandler} style={operatonButtonStyle} disabled={text.length === 0 ? true: false}>lower</button>
+                        <button className="btn btn-warning btn-sm" onClick={extraSpacesRemoveHandler} style={operatonButtonStyle} disabled={text.length === 0 ? true: false}>Remove Extra Spaces</button>
+                        <button className="btn btn-danger btn-sm" onClick={clearTextHandler} style={operatonButtonStyle} disabled={text.length === 0 ? true: false}>Clear</button>
                     </div>
 
                     {/* TEXT DETAILS */}
                     <div className="details">
                         <span><i>Characters</i> : <b>{text.length}</b>, </span>
-                        <span><i>Words</i> : <b>{text.split(" ").length-1}</b></span>
+                        <span><i>Words</i> : <b>{text.split(" ").filter((element)=>{return element.length !== 0}).length}</b></span>
                     </div>
                 </div>
                 
